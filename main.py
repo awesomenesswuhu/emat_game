@@ -1,21 +1,23 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
-
-
-
-# Hello world
 # PyGame, Django, Streamlit/Koyeb
+
+import openai
+
+openai.api_key = 'API'
+
+def chat_with_gpt(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    return response.choices[0].message.content.strip()
+
+if __name__ == "__main__":
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["quit", "exit", "bye"]:
+            break
+
+        response = chat_with_gpt(user_input)
+        print("Chatbot: ", response)
